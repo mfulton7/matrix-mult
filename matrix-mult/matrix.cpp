@@ -46,3 +46,18 @@ matrix matrix::operator+(matrix const& obj)
 	}
 	return result;
 }
+
+bool matrix::operator==(matrix const& obj)
+{
+	for (int i = 0; i < this->data.size(); i++) {
+		for (int j = 0; j < this->data[i].size(); j++) {
+			if (this->data[i][j] == obj.data[i][j]) {
+				continue;
+			}
+			else {
+				return false;
+			}
+		}
+	}
+	return true;
+}

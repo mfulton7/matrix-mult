@@ -20,6 +20,7 @@ public:
 
 	matrix operator+(matrix const& obj);
 
+	bool operator==(matrix const& obj);
 };
 
 #endif
