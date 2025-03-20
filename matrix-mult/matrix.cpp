@@ -47,7 +47,7 @@ matrix matrix::operator+(matrix const& obj)
 	return result;
 }
 
-bool matrix::operator==(matrix const& obj)
+bool matrix::operator==(matrix const& obj) const
 {
 	for (int i = 0; i < this->data.size(); i++) {
 		for (int j = 0; j < this->data[i].size(); j++) {
@@ -60,4 +60,15 @@ bool matrix::operator==(matrix const& obj)
 		}
 	}
 	return true;
+}
+
+std::ostream& matrix::operator<<(std::ostream& os)
+{
+	for (int i = 0; i < this->data.size(); i++) {
+		for (int j = 0; j < data[i].size(); j++) {
+			os << data[i][j];
+		}
+		os << std::endl;
+	}
+	return os;
 }

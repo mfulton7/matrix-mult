@@ -20,7 +20,13 @@ public:
 
 	matrix operator+(matrix const& obj);
 
-	bool operator==(matrix const& obj);
+	bool operator==(matrix const& obj) const;
+	
+	std::ostream& operator<<(std::ostream& os);
+
+
 };
 
 #endif
+
+

@@ -6,12 +6,27 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
+namespace Microsoft {
+	namespace VisualStudio {
+		namespace CppUnitTestFramework {
+			template<>
+			std::wstring ToString<matrix>(const matrix& obj) {
+				return (L"test");
+			}
+		}
+	}
+}
+
+
 namespace matrixtest
 {
+
+
+
 	TEST_CLASS(matrixtest)
 	{
 	public:
-		
+
 		TEST_METHOD(TestMatrixAddition)
 		{
 
@@ -29,7 +44,7 @@ namespace matrixtest
 			matrix add_a = test_matrix + empty_matrix;
 			matrix add_b = test_matrix + test_matrix;
 			
-			Assert::AreEqual(add_a.data[0], test_matrix.data[0]);
+			Assert::AreEqual(add_a, add_b);
 
 		}
 	};
