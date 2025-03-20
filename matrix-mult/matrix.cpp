@@ -24,11 +24,14 @@ matrix::matrix(const std::vector<std::vector<int>>& passed_data)
 
 void matrix::print()
 {
+	std::cout << "__________________________________" << std::endl;
 	for (int i = 0; i < this->data.size(); i++) {
 		for (int j = 0; j < data[i].size(); j++) {
-			std::cout << data[i][j] << std::endl;
+			std::cout << data[i][j] << '|';
 		}
+		std::cout << std::endl;
 	}
+	std::cout << "__________________________________" << std::endl;
 }
 
 matrix matrix::operator+(matrix const& obj)

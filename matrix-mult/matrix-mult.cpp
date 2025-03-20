@@ -33,7 +33,7 @@ int main()
     matrix add_result = test_matrix + empty_matrix;
     add_result.print();
     matrix add_result2 = test_matrix + test_matrix;
-    add_result.print();
+    add_result2.print();
 }
 
 
