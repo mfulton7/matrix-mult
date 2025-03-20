@@ -8,11 +8,15 @@ class matrix
 {
 public:
 	std::vector<std::vector<int>> data;
-	// constructor
+	// constructors
+	matrix();
+	matrix(int rows, int columns);
 	matrix(const std::vector<std::vector<int>>& passed_data);
 
 	// allows for visualizing data in matrix
 	void print();
+
+	matrix operator+(matrix const& obj);
 
 };
 
