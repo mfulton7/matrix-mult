@@ -72,3 +72,28 @@ std::ostream& matrix::operator<<(std::ostream& os)
 	}
 	return os;
 }
+
+matrix matrix::operator*(matrix const& obj)
+{
+	// initial check to see if matrices can be multiplied
+	// number of columns in LHS needs to be the same as rows in RHS
+	if (this->data[0].size() != obj.data[0].size()) {
+		throw std::invalid_argument("matrix multiplication cannot occur if columns of LHS is different than rows of RHS");
+	}
+
+	// create empty matrix to store result
+	// result of multiplication will have the rows of LHS, and the columns in the RHS
+	matrix result(this->data.size(), obj.data[0].size());
+
+	for (int i = 0; i < this->data.size(); i++) {
+		// multiply row of lhs by column of rhs
+		for (int j = 0; j < obj.data[i].size(); j++) {
+			int tmp = 0;
+			tmp = this->data[i][j] * obj.data[j][i];
+			result.data[i][j] = tmp;
+		}
+	
+	}
+
+	return result;
+}

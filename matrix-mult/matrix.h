@@ -24,6 +24,8 @@ public:
 	
 	std::ostream& operator<<(std::ostream& os);
 
+	matrix operator*(matrix const& obj);
+
 
 };
 
