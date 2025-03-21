@@ -11,7 +11,14 @@ namespace Microsoft {
 		namespace CppUnitTestFramework {
 			template<>
 			std::wstring ToString<matrix>(const matrix& obj) {
-				return (L"test");
+				std::wstring result;
+				for (int i = 0; i < obj.data.size(); i++) {
+					for (int j = 0; j < obj.data[i].size(); j++) {
+						result += std::to_wstring(obj.data[i][j]);
+					}
+					//result += std::endl;
+				}
+				return result;
 			}
 		}
 	}
@@ -44,7 +51,8 @@ namespace matrixtest
 			matrix add_a = test_matrix + empty_matrix;
 			matrix add_b = test_matrix + test_matrix;
 			
-			Assert::AreEqual(add_a, add_b);
+			// we added an empty array to a populated one so the result should be equivalent to the original populated matrix
+			Assert::AreEqual(add_a, test_matrix);
 
 		}
 	};
