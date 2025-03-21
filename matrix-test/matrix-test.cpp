@@ -15,6 +15,7 @@ namespace Microsoft {
 				for (int i = 0; i < obj.data.size(); i++) {
 					for (int j = 0; j < obj.data[i].size(); j++) {
 						result += std::to_wstring(obj.data[i][j]);
+						result += ',';
 					}
 					//result += std::endl;
 				}

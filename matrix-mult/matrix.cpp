@@ -85,13 +85,16 @@ matrix matrix::operator*(matrix const& obj)
 	// result of multiplication will have the rows of LHS, and the columns in the RHS
 	matrix result(this->data.size(), obj.data[0].size());
 
+	int offset = 0;
 	for (int i = 0; i < this->data.size(); i++) {
-		// multiply row of lhs by column of rhs
-		for (int j = 0; j < obj.data[i].size(); j++) {
-			int tmp = 0;
-			tmp = this->data[i][j] * obj.data[j][i];
-			result.data[i][j] = tmp;
+		int tmp = 0;
+		// i is row index, j is column index
+		// iterate of columns for row i
+		for (int j = 0; j < this->data[i].size(); j++) {			
+			tmp += this->data[i][j] * obj.data[j][i];			
 		}
+		//multiply this row in LHS by every column in RHS 
+		result.data[i][i + offset] = tmp;
 	
 	}
 
