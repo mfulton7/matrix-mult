@@ -60,6 +60,13 @@ namespace matrixtest
 			vv.push_back(v1);
 			vv.push_back(v2);
 
+			std::vector<int> v4 = {7, 10};
+			std::vector<int> v5 = { 15, 22 };
+			std::vector<std::vector<int>> vx;
+			vx.push_back(v4);
+			vx.push_back(v5);
+			matrix mult_matrix = matrix(vx);
+
 			// create test matrix
 			matrix test_matrix = matrix(vv);
 			matrix empty_matrix = matrix(2, 2);
@@ -67,7 +74,7 @@ namespace matrixtest
 			matrix mult_a = test_matrix * empty_matrix;
 			matrix mult_b = test_matrix * test_matrix;
 
-			Assert::AreEqual(1, 1);		
+			Assert::AreEqual(mult_b, mult_matrix);		
 		}
 	};
 }
