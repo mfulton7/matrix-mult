@@ -72,7 +72,7 @@ namespace matrixtest
 			matrix test_matrix = matrix(vv);
 			matrix empty_matrix = matrix(2, 2);
 
-			matrix mult_a = test_matrix * empty_matrix;
+			//matrix mult_a = test_matrix * empty_matrix;
 			matrix mult_b = test_matrix * test_matrix;
 
 			Assert::AreEqual(mult_b, mult_matrix);		

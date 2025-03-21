@@ -87,15 +87,15 @@ matrix matrix::operator*(matrix const& obj)
 
 	int offset = 0;
 	for (int i = 0; i < this->data.size(); i++) {
-		int tmp = 0;
-		// i is row index, j is column index
-		// iterate of columns for row i
-		for (int j = 0; j < this->data[i].size(); j++) {			
-			tmp += this->data[i][j] * obj.data[j][i];			
+		for (int k = 0; k < this->data.size(); k++) {
+			int tmp = 0;
+			for (int j = 0; j < this->data[i].size(); j++) {
+
+				tmp += this->data[i][j] * obj.data[j][k];
+
+			}
+			result.data[i][k] = tmp;
 		}
-		//multiply this row in LHS by every column in RHS 
-		result.data[i][i + offset] = tmp;
-	
 	}
 
 	return result;
