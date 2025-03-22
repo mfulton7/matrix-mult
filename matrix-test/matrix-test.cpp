@@ -99,6 +99,37 @@ namespace matrixtest
 			Assert::AreEqual(mult_a, empty_matrix);
 		}
 
+		TEST_METHOD(TestUnevenValidMultiplication)
+		{
+			// create a 2 row, 3 column matrix
+			std::vector<int> v1 = { 7, 8, 9 };
+			std::vector<int> v2 = {3, 4, 5};
+			std::vector<std::vector<int>> vx;
+			vx.push_back(v1);
+			vx.push_back(v2);
+			matrix a = matrix(vx);
+
+			// create a 3 row 2 column matrix
+			std::vector<int> v3 = { 4, 2 };
+			std::vector<std::vector<int>> vy;
+			vy.push_back(v3);
+			vy.push_back(v3);
+			vy.push_back(v3);
+			matrix b = matrix(vy);
+
+			matrix result = a * b;
+
+			//create correct matrix for comparison
+			std::vector<int> r1 = {96, 48};
+			std::vector<int> r2 = { 48, 24 };
+			std::vector<std::vector<int>> r;
+			r.push_back(r1);
+			r.push_back(r2);
+			matrix truth = matrix(r);
+			
+			Assert::AreEqual(result, truth);
+		}
+
 
 
 		TEST_METHOD(TestInvalidSizeMultiplication) 

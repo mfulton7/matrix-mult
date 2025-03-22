@@ -40,6 +40,9 @@ matrix::matrix(int rows, int columns, bool random)
 
 matrix::matrix(const std::vector<std::vector<int>>& passed_data)
 {
+	// TODO
+	// at some point need a way to automatically pad uneven data with zeros
+	// 
 	//sanity check that throws and error if the data has uneven columns
 	int column_size = passed_data[0].size();
 	for (int i = 0; i < passed_data.size(); i++) 
@@ -111,7 +114,7 @@ matrix matrix::operator*(matrix const& obj)
 	auto start_exec = std::chrono::high_resolution_clock::now();
 	// initial check to see if matrices can be multiplied
 	// number of columns in LHS needs to be the same as rows in RHS
-	if (this->data[0].size() != obj.data[0].size()) {
+	if (this->data[0].size() != obj.data.size()) {
 		throw std::invalid_argument("matrix multiplication cannot occur if columns of LHS is different than rows of RHS");
 	}
 
