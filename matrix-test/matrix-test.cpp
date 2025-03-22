@@ -30,6 +30,11 @@ namespace Microsoft {
 
 namespace matrixtest
 {
+	void mult_helper() {
+		matrix m_a = matrix(3, 3, true);
+		matrix m_b = matrix(7, 7, true);
+		matrix result = m_a * m_b;
+	}
 	TEST_CLASS(matrixtest)
 	{
 	public:
@@ -87,6 +92,16 @@ namespace matrixtest
 
 			Assert::AreEqual(mult_b, mult_matrix);	
 			Assert::AreEqual(mult_a, empty_matrix);
+		}
+
+
+
+		TEST_METHOD(TestInvalidSizeMultiplication) 
+		{
+
+			auto lambda_with_exec = [] {mult_helper(); };
+			Assert::ExpectException<std::invalid_argument>(lambda_with_exec);
+
 		}
 	};
 }
