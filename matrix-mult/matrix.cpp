@@ -40,6 +40,14 @@ matrix::matrix(int rows, int columns, bool random)
 
 matrix::matrix(const std::vector<std::vector<int>>& passed_data)
 {
+	//sanity check that throws and error if the data has uneven columns
+	int column_size = passed_data[0].size();
+	for (int i = 0; i < passed_data.size(); i++) 
+	{
+		if (passed_data[i].size() != column_size) {
+			throw std::invalid_argument("matrix generation can not occur since the passed data has uneven columns, or is less than one row");
+		}
+	}
 	this->data = passed_data;
 }
 

@@ -35,6 +35,11 @@ namespace matrixtest
 		matrix m_b = matrix(7, 7, true);
 		matrix result = m_a * m_b;
 	}
+
+	void matrix_helper(std::vector<std::vector<int>> arg) {
+		matrix m = matrix(arg);
+	}
+
 	TEST_CLASS(matrixtest)
 	{
 	public:
@@ -102,6 +107,20 @@ namespace matrixtest
 			auto lambda_with_exec = [] {mult_helper(); };
 			Assert::ExpectException<std::invalid_argument>(lambda_with_exec);
 
+		}
+
+		TEST_METHOD(TestInvalidPassedDataForMatrixGeneration) 
+		{
+			std::vector<int> v1 = { 1, 2, 3 };
+			std::vector<int> v2 = { 4 };
+			std::vector<int> v3 = { 5, 6, 7, 8, 9 };
+			std::vector<std::vector<int>> vx;
+			vx.push_back(v1);
+			vx.push_back(v2);
+			vx.push_back(v3);
+
+			auto lambda_with_exec = [vx] {matrix_helper(vx); };
+			Assert::ExpectException<std::invalid_argument>(lambda_with_exec);
 		}
 	};
 }
