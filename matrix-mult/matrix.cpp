@@ -9,6 +9,7 @@ matrix::matrix()
 // if random true, then populate matrix of size r, c, with random ints, if false then zeros
 matrix::matrix(int rows, int columns, bool random)
 {
+	auto start_exec = std::chrono::high_resolution_clock::now();
 	std::srand(std::time(0));
 	if (!random) {
 		std::vector<std::vector<int>> zeroed;
@@ -31,6 +32,9 @@ matrix::matrix(int rows, int columns, bool random)
 		}
 		this->data = randed;
 	}
+	auto end_exec = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_exec - start_exec);
+	std::cout << "Matrix generation time is " << duration.count() << " ms" << std::endl;
 
 }
 
@@ -96,6 +100,7 @@ std::ostream& matrix::operator<<(std::ostream& os)
 
 matrix matrix::operator*(matrix const& obj)
 {
+	auto start_exec = std::chrono::high_resolution_clock::now();
 	// initial check to see if matrices can be multiplied
 	// number of columns in LHS needs to be the same as rows in RHS
 	if (this->data[0].size() != obj.data[0].size()) {
@@ -118,6 +123,9 @@ matrix matrix::operator*(matrix const& obj)
 			result.data[i][k] = tmp;
 		}
 	}
+	auto end_exec = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_exec - start_exec);
+	std::cout << "Execution time for multiplication is " << duration.count() << " ms" << std::endl;
 
 	return result;
 }
