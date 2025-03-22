@@ -22,7 +22,7 @@ int main()
 
     // create test matrix
     matrix test_matrix = matrix(vv);
-    matrix empty_matrix = matrix(2, 2);
+    matrix empty_matrix = matrix(2, 2, false);
     
     std::cout << "Test matrix (with items)" << std::endl;
     test_matrix.print();

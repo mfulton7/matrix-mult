@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <chrono>
 
 #ifndef MATRIX_H
 #define MATRIX_H
@@ -12,7 +13,7 @@ public:
 	std::vector<std::vector<int>> data;
 	// constructors
 	matrix();
-	matrix(int rows, int columns);
+	matrix(int rows, int columns, bool random);
 	matrix(const std::vector<std::vector<int>>& passed_data);
 
 	// allows for visualizing data in matrix

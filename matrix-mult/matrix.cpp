@@ -6,14 +6,31 @@ matrix::matrix()
 	this->data = blank;
 }
 
-matrix::matrix(int rows, int columns)
+// if random true, then populate matrix of size r, c, with random ints, if false then zeros
+matrix::matrix(int rows, int columns, bool random)
 {
-	std::vector<std::vector<int>> zeroed;
-	std::vector<int> v1(rows, 0);
-	for (int i = 0; i < columns; i++) {
-		zeroed.push_back(v1);
+	std::srand(std::time(0));
+	if (!random) {
+		std::vector<std::vector<int>> zeroed;
+		std::vector<int> v1(rows, 0);
+		for (int i = 0; i < columns; i++) {
+			zeroed.push_back(v1);
+		}
+		this->data = zeroed;
 	}
-	this->data = zeroed;
+	else{
+		std::vector<std::vector<int>> randed;
+		
+		for (int i = 0; i < columns; i++) {
+			std::vector<int> v1;
+			for (int j = 0; j < rows; j++) {
+				int rNum = std::rand() % 101;
+				v1.push_back(rNum);
+			}
+			randed.push_back(v1);
+		}
+		this->data = randed;
+	}
 
 }
 
@@ -36,14 +53,18 @@ void matrix::print()
 
 matrix matrix::operator+(matrix const& obj)
 {
+	auto start_exec = std::chrono::high_resolution_clock::now();
 	// create result matrix of proper size and fill with zeros
-	matrix result(this->data.size(), this->data[0].size());
+	matrix result(this->data.size(), this->data[0].size(), false);
 
 	for (int i = 0; i < this->data.size(); i++) {
 		for (int j = 0; j < this->data[i].size(); j++) {
 			result.data[i][j] = this->data[i][j] + obj.data[i][j];
 		}
 	}
+	auto end_exec = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_exec - start_exec);
+	std::cout << "Execution time for addition is " << duration.count() << " ms" << std::endl;
 	return result;
 }
 
@@ -83,7 +104,7 @@ matrix matrix::operator*(matrix const& obj)
 
 	// create empty matrix to store result
 	// result of multiplication will have the rows of LHS, and the columns in the RHS
-	matrix result(this->data.size(), obj.data[0].size());
+	matrix result(this->data.size(), obj.data[0].size(), false);
 
 	int offset = 0;
 	for (int i = 0; i < this->data.size(); i++) {

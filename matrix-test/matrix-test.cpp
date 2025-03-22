@@ -3,6 +3,8 @@
 #include "../matrix-mult/matrix.h"
 #include "../matrix-mult/matrix.cpp"
 #include <vector>
+#include <iostream>
+#include <chrono>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -31,6 +33,14 @@ namespace matrixtest
 	TEST_CLASS(matrixtest)
 	{
 	public:
+
+		TEST_METHOD(TestMatrixGeneration) 
+		{
+			matrix random_matrix = matrix(5, 5, true);
+			random_matrix.print();
+			Assert::AreEqual(1, 1);
+		}
+
 		TEST_METHOD(TestMatrixAddition)
 		{
 
@@ -43,7 +53,7 @@ namespace matrixtest
 
 			// create test matrix
 			matrix test_matrix = matrix(vv);
-			matrix empty_matrix = matrix(2, 2);
+			matrix empty_matrix = matrix(2, 2, false);
 
 			matrix add_a = test_matrix + empty_matrix;
 			matrix add_b = test_matrix + test_matrix;
@@ -70,12 +80,13 @@ namespace matrixtest
 
 			// create test matrix
 			matrix test_matrix = matrix(vv);
-			matrix empty_matrix = matrix(2, 2);
+			matrix empty_matrix = matrix(2, 2, false);
 
-			//matrix mult_a = test_matrix * empty_matrix;
+			matrix mult_a = test_matrix * empty_matrix;
 			matrix mult_b = test_matrix * test_matrix;
 
-			Assert::AreEqual(mult_b, mult_matrix);		
+			Assert::AreEqual(mult_b, mult_matrix);	
+			Assert::AreEqual(mult_a, empty_matrix);
 		}
 	};
 }
