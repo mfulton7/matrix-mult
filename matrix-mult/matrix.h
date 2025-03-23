@@ -15,7 +15,7 @@ class matrix
 public:
 
 	// threads to be used
-	int max_threads = 4;
+	int max_threads = 3;
 
 	std::vector<std::vector<int>> data;
 	// constructors

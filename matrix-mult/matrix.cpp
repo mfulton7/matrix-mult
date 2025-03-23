@@ -163,8 +163,12 @@ matrix matrix::operator*(matrix const& obj)
 		int index = 0;
 		while (index < this->data.size()) {
 			for (int t = 0; t < this->max_threads; t++) {
-				thread_pool.push_back(std::move(std::thread(&matrix::multiplication_thread, this, (t + index), (obj), std::ref(result))));
-
+				if ((t + index) >= this->data.size()) {
+					break;
+				}
+				else {
+					thread_pool.push_back(std::move(std::thread(&matrix::multiplication_thread, this, (t + index), (obj), std::ref(result))));
+				}
 			}
 
 			// wait for threads to finish
