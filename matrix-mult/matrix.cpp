@@ -115,7 +115,7 @@ std::ostream& matrix::operator<<(std::ostream& os)
 	return os;
 }
 
-void matrix::multiplication_thread() 
+void matrix::multiplication_thread(int thread_row, matrix& result_matrix) 
 {
 	std::cout << "I am a thread...." << std::endl;
 
@@ -152,7 +152,8 @@ matrix matrix::operator*(matrix const& obj)
 	else {
 		std::vector<std::thread> thread_pool;
 		for (int t = 0; t < this->max_threads; t++) {
-			thread_pool.push_back(std::move(std::thread(&matrix::multiplication_thread, this)));
+			thread_pool.push_back(std::move(std::thread(&matrix::multiplication_thread, this, t, std::ref(result))));
+			multiplication_thread(t, result);
 		}
 
 		// wait for threads to finish
