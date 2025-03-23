@@ -35,7 +35,7 @@ public:
 	
 	std::ostream& operator<<(std::ostream& os);
 
-	void multiplication_thread(int thread_row, matrix& result_matrix);
+	void multiplication_thread(int thread_row, const matrix& RHS, matrix& result_matrix);
 
 	matrix operator*(matrix const& obj);
 
