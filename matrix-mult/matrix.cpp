@@ -66,12 +66,18 @@ void matrix::print()
 	std::cout << "__________________________________" << std::endl;
 }
 
+void matrix::addition_thread() 
+{
+
+}
+
 matrix matrix::operator+(matrix const& obj)
 {
 	auto start_exec = std::chrono::high_resolution_clock::now();
 	// create result matrix of proper size and fill with zeros
 	matrix result(this->data.size(), this->data[0].size(), false);
 
+	//std::thread t1(f, 3);
 	for (int i = 0; i < this->data.size(); i++) {
 		for (int j = 0; j < this->data[i].size(); j++) {
 			result.data[i][j] = this->data[i][j] + obj.data[i][j];
@@ -109,6 +115,12 @@ std::ostream& matrix::operator<<(std::ostream& os)
 	return os;
 }
 
+void matrix::multiplication_thread() 
+{
+	std::cout << "I am a thread...." << std::endl;
+
+}
+
 matrix matrix::operator*(matrix const& obj)
 {
 	auto start_exec = std::chrono::high_resolution_clock::now();
@@ -136,6 +148,18 @@ matrix matrix::operator*(matrix const& obj)
 				result.data[i][k] = tmp;
 			}
 		}
+	}
+	else {
+		std::vector<std::thread> thread_pool;
+		for (int t = 0; t < this->max_threads; t++) {
+			thread_pool.push_back(std::move(std::thread(&matrix::multiplication_thread, this)));
+		}
+
+		// wait for threads to finish
+		for (int t = 0; t < thread_pool.size(); t++) {
+			thread_pool[t].join();
+		}
+	
 	}
 	auto end_exec = std::chrono::high_resolution_clock::now();
 	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_exec - start_exec);

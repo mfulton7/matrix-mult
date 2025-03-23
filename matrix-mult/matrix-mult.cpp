@@ -15,6 +15,7 @@ int main()
     matrix test_2(1000, 1000, true);
 
     matrix result = test_1 * test_2;
+    //matrix result = test_1 + test_2;
     std::cout << "End Execution...";
 }
 
