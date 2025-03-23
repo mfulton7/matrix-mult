@@ -117,8 +117,16 @@ std::ostream& matrix::operator<<(std::ostream& os)
 
 void matrix::multiplication_thread(int thread_row, const matrix& RHS, matrix& result_matrix) 
 {
-	std::cout << "I am a thread...." << std::endl;
+	std::cout << "I am thread number ...." << thread_row << std::endl;
+	for (int k = 0; k < this->data.size(); k++) {
+		int tmp = 0;
+		for (int j = 0; j < this->data[thread_row].size(); j++) {
 
+			tmp += this->data[thread_row][j] * RHS.data[j][k];
+
+		}
+		result_matrix.data[thread_row][k] = tmp;
+	}
 
 }
 
@@ -152,14 +160,22 @@ matrix matrix::operator*(matrix const& obj)
 	}
 	else {
 		std::vector<std::thread> thread_pool;
-		for (int t = 0; t < this->max_threads; t++) {
-			thread_pool.push_back(std::move(std::thread(&matrix::multiplication_thread, this, t, (obj), std::ref(result))));
-			
-		}
+		int index = 0;
+		while (index < this->data.size()) {
+			for (int t = 0; t < this->max_threads; t++) {
+				thread_pool.push_back(std::move(std::thread(&matrix::multiplication_thread, this, (t + index), (obj), std::ref(result))));
 
-		// wait for threads to finish
-		for (int t = 0; t < thread_pool.size(); t++) {
-			thread_pool[t].join();
+			}
+
+			// wait for threads to finish
+			for (int t = 0; t < thread_pool.size(); t++) {
+				thread_pool[t].join();
+			}
+
+			thread_pool.clear();
+
+			// increment index by number of joined threads
+			index += max_threads;
 		}
 	
 	}
