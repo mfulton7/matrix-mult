@@ -7,9 +7,15 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+
+
 class matrix
 {
 public:
+
+	// threads to be used
+	int max_threads = 1;
+
 	std::vector<std::vector<int>> data;
 	// constructors
 	matrix();

@@ -122,21 +122,24 @@ matrix matrix::operator*(matrix const& obj)
 	// result of multiplication will have the rows of LHS, and the columns in the RHS
 	matrix result(this->data.size(), obj.data[0].size(), false);
 
-	int offset = 0;
-	for (int i = 0; i < this->data.size(); i++) {
-		for (int k = 0; k < this->data.size(); k++) {
-			int tmp = 0;
-			for (int j = 0; j < this->data[i].size(); j++) {
+	if (this->max_threads == 1) {
+		// single threaded approach
+		int offset = 0;
+		for (int i = 0; i < this->data.size(); i++) {
+			for (int k = 0; k < this->data.size(); k++) {
+				int tmp = 0;
+				for (int j = 0; j < this->data[i].size(); j++) {
 
-				tmp += this->data[i][j] * obj.data[j][k];
+					tmp += this->data[i][j] * obj.data[j][k];
 
+				}
+				result.data[i][k] = tmp;
 			}
-			result.data[i][k] = tmp;
 		}
 	}
 	auto end_exec = std::chrono::high_resolution_clock::now();
 	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_exec - start_exec);
-	std::cout << "Execution time for multiplication is " << duration.count() << " ms" << std::endl;
+	std::cout << "Execution time for multiplication is " << duration.count() << " ms" << "... using " << this->max_threads<< " number of threads" << std::endl;
 
 	return result;
 }
